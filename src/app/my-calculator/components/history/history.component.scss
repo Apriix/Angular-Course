@@ -1,0 +1,9 @@
+.calculator_history {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  &-title {
+    font-weight: bold;
+    font-size: 16px;
+  }
+}
