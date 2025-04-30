@@ -9,4 +9,13 @@ import { Component } from '@angular/core';
 })
 export class DirectivesComponent {
   public colors: string[] = ['red', 'green', 'blue', 'yellow', 'purple'];
+
+  public isShow = true;
+
+  public currentColor: string = this.colors[0];
+
+  public elementStyle: any = {
+    color: 'red',
+    opacity: 0.5,
+  };
 }

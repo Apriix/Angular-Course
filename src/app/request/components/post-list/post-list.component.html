@@ -1,0 +1,7 @@
+@if (posts$ |async; as posts) { @for (post of posts; track post.id) {
+
+<div class="post">
+  <span class="post_title"> {{ post.title }}</span>
+  <span class="post_content">{{ post.body }}</span>
+</div>
+} }

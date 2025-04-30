@@ -1,0 +1,16 @@
+import { Component } from '@angular/core';
+import { ChildComponent } from '../child/child.component';
+
+@Component({
+  selector: 'app-parent',
+  imports: [ChildComponent],
+  templateUrl: './parent.component.html',
+  styleUrl: './parent.component.scss',
+})
+export class ParentComponent {
+  public hi: string = 'juihkb';
+
+  public handlerEvent(event: string) {
+    this.hi = event;
+  }
+}
