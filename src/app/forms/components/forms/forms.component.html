@@ -1,8 +1,105 @@
-<div>
-  <label for="login">Login</label>
-  <input type="text" id='"Login' />
-  <label for="email">Email</label>
-  <input type="email" id="email" />
-  <label for="password">Password</label>
-  <input type="password" id="password" />
+<form (ngSubmit)="submit()" class="login-form" [formGroup]="myForm">
+  <div>
+    <label for="login">Login</label>
+    <input type="text" id='"Login' formControlName="login" />
+    @if (!myForm.controls.login.valid && myForm.controls.login.touched) {
+    <small style="color: red">Это поля обязательно для заполнение</small>
+
+    }
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" formControlName="email" />
+    @if (!myForm.controls.email.valid && myForm.controls.email.touched) {
+    <small style="color: red">Это поля обязательно для заполнение</small>
+
+    }
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password" id="password" formControlName="password" />
+    @if (!myForm.controls.password.valid && myForm.controls.password.touched) {
+    <small style="color: red">Это поля обязательно для заполнение</small>
+
+    }
+  </div>
+
+  <button [disabled]="myForm.invalid || isLoading">Send Value</button>
+</form>
+
+<div class="login-form" [formGroup]="validatorsForm">
+  <h2>Custom Validators</h2>
+  <div>
+    <label for="mail">Mail</label>
+    <input type="text" id="mail" formControlName="mail" />
+    @if (!validatorsForm.controls.mail.valid &&
+    validatorsForm.controls.mail.touched) {
+    <small style="color: red">Неправильно введены данные</small>
+
+    }
+  </div>
+  <div>
+    <label for="password_one">Введите пароль</label>
+    <input type="password" id="password_one" formControlName="password_one" />
+  </div>
+  <div>
+    <label for="password_two">Введите пароль еше раз</label>
+    <input type="password" id="password_two" formControlName="password_two" />
+  </div>
+  <div>
+    @if (validatorsForm.errors?.["PasswordDoNotMatch"]) {
+    <div>
+      <span style="color: red">Пароли не совпадают</span>
+    </div>
+    }
+  </div>
+</div>
+
+<form class="login-form" [formGroup]="fbForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name" />
+  </div>
+
+  <div class="login-form_array" formArrayName="skills">
+    @for (skill of skills.controls;track skill; let i = $index ) {
+
+    <div [formGroupName]="i">
+      <label [for]="i + 'skill'">{{ i + 1 }} | Skill</label>
+      <input [id]="i + 'skill'" type="text" formControlName="skill" />
+      <label [for]="i + 'exp'">Experience</label>
+      <input [id]="i + 'exp'" type="text" formControlName="experience" />
+      <button type="button" (click)="removeSkill(i)">Delete</button>
+    </div>
+    }
+  </div>
+  <button type="button" (click)="addSkill()">Add skill</button>
+  <button type="submit">Submit</button>
+</form>
+
+<div class="login-form">
+  <h2>Template-Driven Forms</h2>
+
+  <pre>{{ templateForm | json }}</pre>
+
+  <div>
+    <label for="temlpateLogin">Login</label
+    ><input id="templateLogin" type="text" [(ngModel)]="templateForm.login" />
+  </div>
+  <div>
+    <label for="templateEmail">Email</label
+    ><input id="templateEmail" type="text" [(ngModel)]="templateForm.email" />
+  </div>
+  <div>
+    <label for="templatePassword">Password</label
+    ><input
+      id="templatePassword"
+      type="password"
+      [(ngModel)]="templateForm.password"
+    />
+  </div>
+</div>
+
+<div class="login-form">
+  <h2>Custom Control</h2>
 </div>

@@ -8,13 +8,7 @@ import { FormsComponent } from './forms/components/forms/forms.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    MyCalculatorModule,
-    MyNavigation,
-    PipesComponent,
-    FormsComponent,
-  ],
+  imports: [RouterOutlet, MyCalculatorModule, MyNavigation],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

@@ -7,7 +7,7 @@ import { Post, PostService } from '../service/post.service';
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, ],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.scss',
 })
