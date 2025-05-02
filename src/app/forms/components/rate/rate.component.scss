@@ -1,0 +1,25 @@
+.rate {
+  &_text {
+    font-size: 20px;
+    margin: 10px 0;
+  }
+
+  &_wrapper {
+    display: flex;
+
+    gap: 7px;
+  }
+
+  &_item {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 2px solid black;
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  &_active {
+    background-color: red;
+  }
+}

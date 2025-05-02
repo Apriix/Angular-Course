@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -8,8 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './object-list.component.html',
   styleUrl: './object-list.component.scss',
 })
-export class MyObjectListComponent {
-  constructor(private router: Router, private route: ActivatedRoute) {
+export class MyObjectListComponent implements OnInit {
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+
+  ngOnInit(): void {
     // this.router.navigate(['/object-list']);
   }
 

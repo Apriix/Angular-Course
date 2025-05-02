@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { MyObject, myObjects } from '../object-list/object-list.component';
 
@@ -11,8 +11,7 @@ import { MyObject, myObjects } from '../object-list/object-list.component';
 })
 export class MyObjectItemComponent implements OnInit {
   public object?: MyObject;
-
-  constructor(private route: ActivatedRoute) {}
+  private route = inject(ActivatedRoute);
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {

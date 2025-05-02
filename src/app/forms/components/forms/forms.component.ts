@@ -1,5 +1,5 @@
 import { CommonModule, JsonPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -12,6 +12,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { RateComponent, RateOptions } from '../rate/rate.component';
 
 export function checkRegExp(regExp: RegExp): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -36,50 +37,46 @@ interface TemplateFormI {
 
 @Component({
   selector: 'app-forms',
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, JsonPipe],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    JsonPipe,
+    RateComponent,
+  ],
   templateUrl: './forms.component.html',
   styleUrl: './forms.component.scss',
 })
 export class FormsComponent implements OnInit {
+  private _fb = inject(FormBuilder);
   public templateForm: TemplateFormI = {
     login: 'Pedro',
     email: '',
     password: '',
   };
-
-  constructor(private _fb: FormBuilder) {}
-
-  public get skills() {
-    return this.fbForm.get('skills') as FormArray;
-  }
-
   public isLoading: boolean = false;
-
   public myForm = new FormGroup({
     login: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   });
-
-  public validatorsForm = new FormGroup(
-    {
-      mail: new FormControl(
-        '',
-        checkRegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)
-      ),
-      password_one: new FormControl(''),
-      password_two: new FormControl(''),
-    },
-    confirmPassword
-  );
+  public validatorsForm!: FormGroup;
 
   public fbForm!: FormGroup;
+  public customForm!: FormGroup;
+
+  public ratesOptions: RateOptions = {
+    rates: 5,
+    text: 'Оцените работу',
+  };
 
   public ngOnInit(): void {
-    this.fbForm = this._fb.group({
-      name: ['Vasya', Validators.required],
-      skills: this._fb.array([]),
-    });
+    this.initForm();
+    this.initValidatorsForm();
+  }
+
+  public get skills() {
+    return this.fbForm.get('skills') as FormArray;
   }
 
   public submit() {
@@ -88,28 +85,47 @@ export class FormsComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-
     setTimeout(() => {
       this.isLoading = false;
       console.log(this.myForm.value);
     }, 3000);
   }
-
   public newSkills(): FormGroup {
     return this._fb.group({
       skill: '',
       experience: '',
     });
   }
-
   public addSkill(): void {
     this.skills.push(this.newSkills());
   }
   public removeSkill(i: number): void {
     this.skills.removeAt(i);
   }
-
   public onSubmit() {
     console.log(this.fbForm.value);
+  }
+  private initForm() {
+    this.fbForm = this._fb.group({
+      name: ['Vasya', Validators.required],
+      skills: this._fb.array([]),
+    });
+
+    this.customForm = this._fb.group({
+      rate: [4],
+    });
+  }
+  private initValidatorsForm(): void {
+    this.validatorsForm = new FormGroup(
+      {
+        mail: new FormControl(
+          '',
+          checkRegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)
+        ),
+        password_one: new FormControl(''),
+        password_two: new FormControl(''),
+      },
+      confirmPassword
+    );
   }
 }

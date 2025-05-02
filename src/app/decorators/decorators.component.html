@@ -1,0 +1,32 @@
+<app-child-decorator>
+  <h1>45$</h1>
+</app-child-decorator>
+<div class="block">
+  <h2>Ng-container & Ng-template</h2>
+  @for (item of array; track $index) {
+  <p>{{ item }}</p>
+
+  }
+
+  <p>First</p>
+  <p *ngIf="isShow; else second">Second true</p>
+  <p>Third</p>
+  <button (click)="isShow = !isShow">Click me</button>
+  <ng-template #second>
+    <p>Second false</p>
+  </ng-template>
+</div>
+
+<div class="block">
+  <p #paragraph>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, dolore
+    ducimus incidunt deleniti odio itaque aliquid adipisci maxime ullam
+    distinctio, nulla a expedita? In officiis, ut enim iure magnam recusandae?
+  </p>
+
+  <ng-template #paragraphTemplate>
+    <p>PEdro</p>
+  </ng-template>
+  <ng-container *ngTemplateOutlet="paragraphTemplate"></ng-container>
+  <app-child-decorator #component></app-child-decorator>
+</div>

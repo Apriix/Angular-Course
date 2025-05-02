@@ -1,26 +1,33 @@
-import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  Input,
+  inject,
+} from '@angular/core';
 
 @Directive({
   selector: '[myChangeColor]',
+  standalone: true,
 })
-export class MyChangeColorDirective implements AfterViewInit {
-  @Input('myChangeColor') colors?: string[];
+export class MyChangeColorDirective {
+  @Input('myChangeColor') colors: string[] = [
+    'red',
+    'blue',
+    'green',
+    'purple',
+    'orange',
+  ];
+  private currentColorIndex = 0;
+  private el = inject(ElementRef);
 
-  private el: ElementRef;
-
-  constructor(el: ElementRef) {
-    this.el = el;
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    this.changeColor();
   }
 
-  ngAfterViewInit(): void {
-    this.changeColor(this.el);
-  }
-
-  private changeColor(el: ElementRef) {
-    if (this.colors && this.colors.length !== 0)
-      setInterval(() => {
-        el.nativeElement.style.color =
-          this.colors![Math.floor(Math.random() * this.colors!.length)];
-      }, 2000);
+  private changeColor() {
+    this.currentColorIndex = (this.currentColorIndex + 1) % this.colors.length;
+    this.el.nativeElement.style.color = this.colors[this.currentColorIndex];
   }
 }

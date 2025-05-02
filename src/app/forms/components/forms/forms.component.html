@@ -32,11 +32,15 @@
   <div>
     <label for="mail">Mail</label>
     <input type="text" id="mail" formControlName="mail" />
-    @if (!validatorsForm.controls.mail.valid &&
-    validatorsForm.controls.mail.touched) {
-    <small style="color: red">Неправильно введены данные</small>
-
-    }
+    <small
+      *ngIf="
+        !validatorsForm.controls['mail']?.valid &&
+        validatorsForm.controls['mail']?.touched
+      "
+      style="color: red"
+    >
+      Неправильно введены данные
+    </small>
   </div>
   <div>
     <label for="password_one">Введите пароль</label>
@@ -100,6 +104,9 @@
   </div>
 </div>
 
-<div class="login-form">
+<div class="login-form" [formGroup]="customForm">
   <h2>Custom Control</h2>
+  <pre>{{ customForm.value | json }}</pre>
+
+  <app-rate formControlName="rate" [options]="ratesOptions"></app-rate>
 </div>

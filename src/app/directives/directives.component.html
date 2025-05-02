@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Встроенные директивы</h2>
+
+  <!-- ngStyle -->
+  <div [ngStyle]="elementStyle">
+    <p>Текст с применением ngStyle</p>
+  </div>
+
+  <!-- ngClass -->
+  <div [ngClass]="{ active: isShow }">
+    <p>Текст с применением ngClass</p>
+  </div>
+
+  <!-- *ngIf -->
+  <div *ngIf="isShow">
+    <p>Этот текст отображается благодаря *ngIf</p>
+  </div>
+
+  <!-- *ngFor -->
+  <div>
+    <h3>Список цветов через *ngFor:</h3>
+    <ul>
+      <li *ngFor="let color of colors">{{ color }}</li>
+    </ul>  
+  </div>
+
+  <!-- ngSwitch -->
+  <div [ngSwitch]="currentColor">
+    <p *ngSwitchCase="'red'">Выбран красный цвет</p>
+    <p *ngSwitchCase="'green'">Выбран зеленый цвет</p>
+    <p *ngSwitchCase="'blue'">Выбран синий цвет</p>
+    <p *ngSwitchDefault>Цвет не выбран</p>
+  </div>
+
+  <!-- Кастомная директива myChangeColor -->
+  <h2>Кастомные директивы</h2>
+  <p [myChangeColor]="customColors">
+    Этот текст меняет цвет при наведении (пользовательские цвета)
+  </p>
+</div>

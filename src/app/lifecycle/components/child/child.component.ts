@@ -11,10 +11,6 @@ export class ChildComponent implements OnInit {
 
   @Output() eventCHange = new EventEmitter<string>();
 
-  constructor() {
-    console.log('%cConstructor', 'color:red');
-  }
-
   public tempTitle: string = '';
 
   ngOnInit(): void {
