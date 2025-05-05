@@ -7,7 +7,7 @@
   </div>
 
   <!-- ngClass -->
-  <div [ngClass]="{ active: isShow }">
+  <div [ngClass]="{ active: isShow }" (click)="isShow = !isShow">
     <p>Текст с применением ngClass</p>
   </div>
 
@@ -21,7 +21,7 @@
     <h3>Список цветов через *ngFor:</h3>
     <ul>
       <li *ngFor="let color of colors">{{ color }}</li>
-    </ul>  
+    </ul>
   </div>
 
   <!-- ngSwitch -->
@@ -34,7 +34,7 @@
 
   <!-- Кастомная директива myChangeColor -->
   <h2>Кастомные директивы</h2>
-  <p [myChangeColor]="customColors">
-    Этот текст меняет цвет при наведении (пользовательские цвета)
-  </p>
+  <p>Этот текст меняет цвет при наведении (пользовательские цвета)</p>
 </div>
+
+<h2 myChangeColor>Директивы</h2>

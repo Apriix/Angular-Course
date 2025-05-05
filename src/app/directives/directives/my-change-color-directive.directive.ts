@@ -1,33 +1,35 @@
 import {
+  AfterViewInit,
   Directive,
-  ElementRef,
+  HostBinding,
   HostListener,
-  Input,
-  inject,
 } from '@angular/core';
 
 @Directive({
   selector: '[myChangeColor]',
   standalone: true,
 })
-export class MyChangeColorDirective {
-  @Input('myChangeColor') colors: string[] = [
-    'red',
-    'blue',
-    'green',
-    'purple',
-    'orange',
-  ];
-  private currentColorIndex = 0;
-  private el = inject(ElementRef);
+export class MyChangeColorDirective implements AfterViewInit {
+  @HostBinding('style.color') color: string = 'red';
+  @HostBinding('class.my-class') class: boolean = true;
+  @HostBinding('style.background') background: string = 'transparent';
 
-  @HostListener('mouseenter')
-  onMouseEnter() {
-    this.changeColor();
+  @HostListener('mouseenter') handleEnter(): void {
+    this.background = this.getCHangeColor();
   }
 
-  private changeColor() {
-    this.currentColorIndex = (this.currentColorIndex + 1) % this.colors.length;
-    this.el.nativeElement.style.color = this.colors[this.currentColorIndex];
+  @HostListener('mouseleave') handleLeave(): void {
+    this.background = 'transparent';
+  }
+
+  constructor() {}
+
+  ngAfterViewInit(): void {
+    setInterval(() => {
+      this.color = this.getCHangeColor();
+    }, 2000);
+  }
+  private getCHangeColor(): string {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
   }
 }

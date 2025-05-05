@@ -1,0 +1,22 @@
+@for (item of todoArr; track $index){
+<app-todo-item [todoItem]="item" />
+}
+
+<div
+  [@fadeInOut]="isShow ? 'open' : 'close'"
+  style="font-size: 30px"
+  (@fadeInOut.start)="onAnimationStart($event)"
+  (@fadeInOut.done)="onAnimationDone($event)"
+>
+  Наш текст
+</div>
+<button style="font-size: 30px" (click)="isShow = !isShow">Скрыть</button>
+<button style="font-size: 30px" (click)="isShow = true">Показать</button>
+
+<h1>view-foo works!</h1>
+<app-view-bar class="pink"></app-view-bar>
+
+<button (click)="login()">Login</button>
+
+<button (click)="changeText()">Change text</button>
+<button (click)="changeStream()">Change Stream</button>
