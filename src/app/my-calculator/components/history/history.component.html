@@ -1,4 +1,6 @@
 <div class="calculator_history">
   <span class="calculator_history-title">История операций</span>
-  <span *ngFor="let obj of history; let i = index">{{ i + 1 }} {{ obj }}</span>
+  @for (obj of history(); track $index;let i = $index) {
+  <span>{{ i + 1 }} {{ obj }}</span>
+  }
 </div>

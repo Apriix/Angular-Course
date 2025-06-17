@@ -1,16 +1,24 @@
 import {
-	animate,
-	state,
-	style,
-	transition,
-	trigger,
-} from '@angular/animations'
-import { CommonModule } from '@angular/common'
-import { ChangeDetectorRef, Component, inject } from '@angular/core'
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 
-import { UserService } from '../../../user-service.service'
-import { TodoItemComponent } from '../todo-item/todo-item.component'
-import { ViewBarComponent } from '../view-bar/view-bar.component'
+import { Router } from '@angular/router';
+import { UserService } from '../../../user-service.service';
+import { TodoItemComponent } from '../todo-item/todo-item.component';
+import { ViewBarComponent } from '../view-bar/view-bar.component';
 export interface TodoItemI {
   text: string;
 }
@@ -30,7 +38,8 @@ const fadeInOut = trigger('fadeInOut', [
   styleUrls: ['./view-foo.component.scss'], // corrected 'styleUrl' to 'styleUrls'
   animations: [fadeInOut],
 })
-export class ViewFooComponent {
+export class ViewFooComponent implements OnInit {
+  private router = inject(Router);
   public isShow = false;
   private userService = inject(UserService);
   private ref = inject(ChangeDetectorRef);
@@ -63,5 +72,33 @@ export class ViewFooComponent {
   }
   public onAnimationDone(event: any) {
     console.log('Done', event);
+  }
+
+  count = signal(0);
+
+  increment() {
+    this.count.update((value) => value + 1);
+  }
+
+  double() {
+    this.count.update((value) => value * this.count());
+  }
+
+  delete() {
+    this.count.update(() => 0);
+  }
+
+  private effect = effect(() => {
+    this.goToCalculator(this.count());
+  });
+
+  goToCalculator(count: number) {
+    if (count > 50) {
+      this.router.navigate(['/calculator']);
+    }
+  }
+
+  ngOnInit() {
+    this.goToCalculator(this.count());
   }
 }

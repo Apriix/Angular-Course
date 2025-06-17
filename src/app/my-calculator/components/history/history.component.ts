@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { AppModule } from '../../../app.module';
 
 @Component({
@@ -9,5 +9,7 @@ import { AppModule } from '../../../app.module';
   styleUrl: './history.component.scss',
 })
 export class HistoryComponent {
-  @Input({ required: true }) history: string[] = [];
+  //   @Input({ required: true }) history: string[] = [];
+
+  readonly history = input.required<string[]>();
 }

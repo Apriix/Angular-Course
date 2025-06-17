@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AppChildComponent } from './app-child/app-child.component';
 import { MyEmptyPage } from './components/empty-route/empty-route.component';
 import { DecoratorsComponent } from './decorators/decorators.component';
 import { DirectivesComponent } from './directives/directives.component';
@@ -25,6 +26,10 @@ export const routes: Routes = [
   {
     path: 'decorators',
     component: DecoratorsComponent,
+  },
+  {
+    path: 'app-child',
+    component: AppChildComponent,
   },
   {
     path: 'styles',

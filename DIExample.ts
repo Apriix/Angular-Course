@@ -13,6 +13,11 @@ class ComponentList {
 class Injector {
   private container = new Map();
 
+  constructor(private providers: any[] = []) {
+    this.providers.forEach((service) =>
+      this.container.set(service, new service())
+    );
+  }
   public get(service: any) {
     const serviceInstance = this.container.get(service);
 
